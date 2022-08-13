@@ -1,9 +1,13 @@
 # End Game: Function for inputting grade for student
 # variables
+import errorChecking
 
 studentName, teacherName, continueLoop, classRoomNum, classType, assignment = '', '', '', '', '', ''
 
-schoolGrade = range(13)
+# These are output texts for user instructions - allows to pass values to error checking, reducing code
+gradeTitle = "0 - 12 (0 = Kindergarten)"
+
+schoolGrade = 0
 
 grade, assignmentPoints = 0, 0
 
@@ -34,8 +38,19 @@ while tempBool:
     ##
     if action == 1:
         studentName = input("What is the student's name? ")
+        while schoolGrade == 0:
+            schoolGrade = input("What grade is this student in? ")
+            schoolGrade = errorChecking.errorchecking(schoolGrade)
+            if schoolGrade in range(0, 13):
+                print("We've added {}, grade {}, to the school roster.".format(studentName, schoolGrade))
+                studentName = ''
+                schoolGrade = 0
+                break
+            else:
+                print("Your input is invalid, please select a number from {}. ".format(schoolGrade, gradeTitle))
+                schoolGrade = 0
+                continue
 
-        print("We've added {} to the school roster.".format(studentName))
         continueLoop = 'student'
 
     elif action == 2:
@@ -55,7 +70,7 @@ while tempBool:
 
     if action in range(1, 4):
         print("*" * 80)
-        tempVal = input("Do you want to add another {}? ".format(continueLoop))
+        tempVal = input("Do you want to add another {}?  Yes or No?".format(continueLoop))
         print("*" * 80)
         if tempVal not in ("Yes", "yes"):
             tempVal = input("Do you want to add something else? ")
