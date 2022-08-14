@@ -60,7 +60,7 @@ while tempBool:
                 classGradeLevel, studentID = 0, 0
                 break
             else:
-                print("Your input is invalid, please select a number from {}. ".format(classGradeLevel, gradeTitle))
+                print("Your input is invalid, please select a number from {}. ".format(gradeTitle))
                 classGradeLevel = 0
                 continue
         # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
