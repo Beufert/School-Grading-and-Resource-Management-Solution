@@ -1,11 +1,7 @@
-# Set up this file to check for errors
-#
-#
-#
-# import adminGetVariables
+# To check for input validation
 
 
-def errorchecking(intcheck):
+def errorcheckingintegers(intcheck):
         try:
             intcheck = int(intcheck)
             return int(intcheck)

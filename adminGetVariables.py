@@ -1,29 +1,40 @@
-# End Game: Function for inputting grade for student
-# variables
+# Imports
 import errorChecking
+import update_files
+#
+# Variables
+#
+# Student Variables
 
-studentName, teacherName, continueLoop, classRoomNum, classType, assignment = '', '', '', '', '', ''
 
-# These are output texts for user instructions - allows to pass values to error checking, reducing code
-gradeTitle = "0 - 12 (0 = Kindergarten)"
+studentFirstName, studentLastName = '', ''
+# TODO: Need to create a function to create ID values and store them
+studentID = 0
 
-schoolGrade = 0
+# Teacher Variables
+teacherFirstName, teacherLastName = '', ''
+teacherID = 0
 
-grade, assignmentPoints = 0, 0
+# Class Variables
+classRoomNum, classID, classGradeLevel, assignmentPoints = 0, 0, 0, 0
+assignment, classType = '', ''
 
+# Functional Application Variables
+continueLoop = ''
 action = 0
+status, tempBool = True, True
+
+# These are output texts for user instructions - allows to pass values to error checking, reducing code while
+# giving the users information needed to correctly use the application
+gradeTitle = "0 - 12 (0 = Kindergarten)"
 
 # intro into application
 
-#
-# Temp value to control leaving loop
-#
-tempBool = True
 print("Welcome to Brizer Grading System!!")
 print("*" * 80)
 while tempBool:
     while action == 0:
-        try:
+        try: # Telling user what to input, checking if the value they put is an number
             action = int(input("Please select a number from the options below: "
                                "\n 1. Add a new student "
                                "\n 2. Add a new teacher "
@@ -33,34 +44,42 @@ while tempBool:
             print("You did not input a number.")
             print("*" * 80)
             continue
-    #
-    # Need to make it so when the users puts in a value other than a number for the question above, it doesn't crash
-    ##
+
+    # Entering selected menu, restarts if user inputs value outside of range (1-3)
     if action == 1:
-        studentName = input("What is the student's name? ")
-        while schoolGrade == 0:
-            schoolGrade = input("What grade is this student in? ")
-            schoolGrade = errorChecking.errorchecking(schoolGrade)
-            if schoolGrade in range(0, 13):
-                print("We've added {}, grade {}, to the school roster.".format(studentName, schoolGrade))
-                studentName = ''
-                schoolGrade = 0
+        # TODO: Need to secure input for malicious inputs
+        studentFirstName = input("What is the student's first name? ")
+        studentLastName = input("What is the student's last name? ")
+        while classGradeLevel == 0:
+            classGradeLevel = input("What grade is this student in? ")
+            classGradeLevel = errorChecking.errorcheckingintegers(classGradeLevel)
+            if classGradeLevel in range(0, 13):
+                print("We've added {} {}, grade {}, to the school roster.".format(studentFirstName, studentLastName, classGradeLevel))
+                update_files.writestudentstofile(studentFirstName, studentLastName, classGradeLevel, studentID)
+                studentFirstName, studentLastName = '', ''
+                classGradeLevel, studentID = 0, 0
                 break
             else:
-                print("Your input is invalid, please select a number from {}. ".format(schoolGrade, gradeTitle))
-                schoolGrade = 0
+                print("Your input is invalid, please select a number from {}. ".format(classGradeLevel, gradeTitle))
+                classGradeLevel = 0
                 continue
-
+        # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
         continueLoop = 'student'
 
+
     elif action == 2:
-        teacherName = input("What is the teacher's name? ")
-        print("We've added {} to the staff roster.".format(teacherName))
+        teacherFirstName = input("What is the teacher's name? ")
+        print("We've added {} to the staff roster.".format(teacherFirstName))
+
+        # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
         continueLoop = 'teacher'
 
     elif action == 3:
-        grade = int(input("What is the teacher's name? "))
-        print("We've added {} to the school roster.".format(grade))
+        assignmentPoints = int(input("What grade did they get? "))
+
+        print("We've added {} to {}.{} grade-book.".format(assignmentPoints, studentID, studentFirstName))
+
+        # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
         continueLoop = 'grade'
 
     else:
