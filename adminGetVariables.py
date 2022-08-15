@@ -46,12 +46,19 @@ while tempBool:
             continue
 
     # Entering selected menu, restarts if user inputs value outside of range (1-3)
+
+    # This section is for adding a Student
     if action == 1:
         # TODO: Need to secure input for malicious inputs
+        #
+        # Get Student's Names
         studentFirstName = input("What is the student's first name? ")
         studentLastName = input("What is the student's last name? ")
+        #
+        #Get Student's Grade - Grade default set to 1, here we ask for number value for the grade
+        # We will also pass the value to Error Checking.py To check if the input is an integer
         while classGradeLevel == 0:
-            classGradeLevel = input("What grade is this student in? ")
+            classGradeLevel = input("What grade is {} in? {} ".format(studentFirstName, gradeTitle))
             classGradeLevel = errorChecking.errorcheckingintegers(classGradeLevel)
             if classGradeLevel in range(0, 13):
                 print("We've added {} {}, grade {}, to the school roster.".format(studentFirstName, studentLastName, classGradeLevel))
