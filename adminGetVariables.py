@@ -16,13 +16,14 @@ teacherFirstName, teacherLastName = '', ''
 teacherID = 0
 
 # Class Variables
-classRoomNum, classID, classGradeLevel, assignmentPoints = 0, 0, 0, 0
+classRoomNum, classID, classGradeLevel, assignmentPoints = 0, 0, 999, 0
 assignment, classType = '', ''
 
 # Functional Application Variables
 continueLoop = ''
 action = 0
 status, tempBool = True, True
+errorBool = False
 
 # These are output texts for user instructions - allows to pass values to error checking, reducing code while
 # giving the users information needed to correctly use the application
@@ -49,33 +50,42 @@ while tempBool:
 
     # This section is for adding a Student
     if action == 1:
-        # TODO: Need to secure input for malicious inputs
+        #
         #
         # Get Student's Names
+        continueLoop = 'student'
         studentFirstName = input("What is the student's first name? ")
         studentLastName = input("What is the student's last name? ")
         #
-        #Get Student's Grade - Grade default set to 1, here we ask for number value for the grade
+        # Get Student's Grade - Grade default set to 0, here we ask for number value for the grade
         # We will also pass the value to Error Checking.py To check if the input is an integer
-        while classGradeLevel == 0:
+        while classGradeLevel == 999:
             classGradeLevel = input("What grade is {} in? {} ".format(studentFirstName, gradeTitle))
-            classGradeLevel = errorChecking.errorcheckingintegers(classGradeLevel)
-            if classGradeLevel in range(0, 13):
+            classGradeLevel, errorBool = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
+
+
+            # Check if they provided a valid grade level
+            if classGradeLevel in range(0, 13) and errorBool:
                 print("We've added {} {}, grade {}, to the school roster.".format(studentFirstName, studentLastName, classGradeLevel))
                 update_files.writestudentstofile(studentFirstName, studentLastName, classGradeLevel, studentID)
                 studentFirstName, studentLastName = '', ''
                 classGradeLevel, studentID = 0, 0
+                errorBool = True
                 break
             else:
                 print("Your input is invalid, please select a number from {}. ".format(gradeTitle))
                 classGradeLevel = 0
                 continue
         # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
-        continueLoop = 'student'
+
 
 
     elif action == 2:
-        teacherFirstName = input("What is the teacher's name? ")
+        teacherFirstName = input("What is the teacher's first name? ")
+        teacherLastName = input("What is the teacher's last name? ")
+        classGradeLevel = input("What grade will Mr./Mis./Miss. {} be teaching? {} ".format(studentLastName, gradeTitle))
+        classGradeLevel = errorChecking.errorcheckingintegers(classGradeLevel)
+
         print("We've added {} to the staff roster.".format(teacherFirstName))
 
         # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
