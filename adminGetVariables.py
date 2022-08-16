@@ -35,7 +35,7 @@ print("Welcome to Brizer Grading System!!")
 print("*" * 80)
 while tempBool:
     while action == 0:
-        try: # Telling user what to input, checking if the value they put is an number
+        try:  # Telling user what to input, checking if the value they put is an number
             action = int(input("Please select a number from the options below: "
                                "\n 1. Add a new student "
                                "\n 2. Add a new teacher "
@@ -51,15 +51,14 @@ while tempBool:
     # This section is for adding a Student
     if action == 1:
         #
-        #
         # Get Student's Names
-        continueLoop = 'student'
+        continueLoop = 'student'    # option later asks if you want to add more *blank*
         studentFirstName = input("What is the student's first name? ")
         studentLastName = input("What is the student's last name? ")
         #
         # Get Student's Grade - Grade default set to 0, here we ask for number value for the grade
         # We will also pass the value to Error Checking.py To check if the input is an integer
-        while classGradeLevel == 999:
+        while classGradeLevel == 999:  # TODO: This should probably use errorBool rather then a random number
             classGradeLevel = input("What grade is {} in? {} ".format(studentFirstName, gradeTitle))
             classGradeLevel, errorBool = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
 
@@ -67,10 +66,7 @@ while tempBool:
             # Check if they provided a valid grade level
             if classGradeLevel in range(0, 13) and errorBool:
                 print("We've added {} {}, grade {}, to the school roster.".format(studentFirstName, studentLastName, classGradeLevel))
-                update_files.writestudentstofile(studentFirstName, studentLastName, classGradeLevel, studentID)
-                studentFirstName, studentLastName = '', ''
-                classGradeLevel, studentID = 0, 0
-                errorBool = True
+                update_files.writestudentstofile(studentFirstName, studentLastName, classGradeLevel, studentID, errorBool)
                 break
             else:
                 print("Your input is invalid, please select a number from {}. ".format(gradeTitle))
@@ -99,6 +95,7 @@ while tempBool:
         # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
         continueLoop = 'grade'
 
+    # Restarts to menu as they did not input a correct number
     else:
         print("You did not pick a number from 1 - 3, try again.")
         print("*" * 80)
