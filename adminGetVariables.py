@@ -77,15 +77,18 @@ while tempBool:
 
 
     elif action == 2:
+        #
+        # Get Teacher's Names
+        continueLoop = 'teacher'
         teacherFirstName = input("What is the teacher's first name? ")
         teacherLastName = input("What is the teacher's last name? ")
         classGradeLevel = input("What grade will Mr./Mis./Miss. {} be teaching? {} ".format(studentLastName, gradeTitle))
-        classGradeLevel = errorChecking.errorcheckingintegers(classGradeLevel)
+        classGradeLevel = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
 
         print("We've added {} to the staff roster.".format(teacherFirstName))
 
         # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
-        continueLoop = 'teacher'
+
 
     elif action == 3:
         assignmentPoints = int(input("What grade did they get? "))
@@ -97,13 +100,13 @@ while tempBool:
 
     # Restarts to menu as they did not input a correct number
     else:
-        print("You did not pick a number from 1 - 3, try again.")
+        print("You did not pick a number from 1 - 3, try again. ")
         print("*" * 80)
         action = 0
 
     if action in range(1, 4):
         print("*" * 80)
-        tempVal = input("Do you want to add another {}?  Yes or No?".format(continueLoop))
+        tempVal = input("Do you want to add another {}?  Yes or No? ".format(continueLoop))
         print("*" * 80)
         if tempVal not in ("Yes", "yes"):
             tempVal = input("Do you want to add something else? ")
