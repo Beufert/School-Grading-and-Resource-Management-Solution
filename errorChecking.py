@@ -5,10 +5,10 @@ def errorcheckingintegers(intcheck, gradetitle, errorbool):
         intcheck = int(intcheck)
         if intcheck in range(0, 13):
             errorbool = True
-            return intcheck, errorbool
+            return intcheck, errorbool, gradetitle
         else:
             intcheck = input("Your input is invalid, please select a number from {}. ".format(gradetitle))
-            errorcheckingintegers(intcheck, gradetitle)
+            errorcheckingintegers(intcheck, gradetitle, errorbool)
     except ValueError:
-        intcheck = 9999
-        errorcheckingintegers(intcheck, gradetitle)
+        intcheck = input("Your input is invalid, please select a number from {}. ".format(gradetitle))
+        errorcheckingintegers(intcheck, gradetitle, errorbool)

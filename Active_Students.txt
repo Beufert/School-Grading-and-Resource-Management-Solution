@@ -4,3 +4,6 @@
 0G6: Jack Frost
 0G1: Frank Munster
 0G4: Joe Picker
+0G4: will tuner
+0G3: Will Pok
+0G4: Emma Hopper

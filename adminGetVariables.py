@@ -1,6 +1,7 @@
 # Imports
 import errorChecking
 import update_files
+import random
 #
 # Variables
 #
@@ -16,9 +17,10 @@ teacherFirstName, teacherLastName = '', ''
 teacherID = 0
 
 # Class Variables
-classRoomNum, classID, classGradeLevel, assignmentPoints = 0, 0, 999, 0
-assignment, classType = '', ''
-
+classID, classGradeLevel, assignmentPoints = 0, 999, 0
+assignment = ''
+classType = ["Math", "English", "Science", "Social Studies", "Physical Education", "Music", "Special Education"]
+classRoomNum = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112]
 # Functional Application Variables
 continueLoop = ''
 action = 0
@@ -55,26 +57,10 @@ while tempBool:
         continueLoop = 'student'    # option later asks if you want to add more *blank*
         studentFirstName = input("What is the student's first name? ")
         studentLastName = input("What is the student's last name? ")
-        #
-        # Get Student's Grade - Grade default set to 0, here we ask for number value for the grade
-        # We will also pass the value to Error Checking.py To check if the input is an integer
-        while classGradeLevel == 999:  # TODO: This should probably use errorBool rather then a random number
-            classGradeLevel = input("What grade is {} in? {} ".format(studentFirstName, gradeTitle))
-            classGradeLevel, errorBool = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
-
-
-            # Check if they provided a valid grade level
-            if classGradeLevel in range(0, 13) and errorBool:
-                print("We've added {} {}, grade {}, to the school roster.".format(studentFirstName, studentLastName, classGradeLevel))
-                update_files.writestudentstofile(studentFirstName, studentLastName, classGradeLevel, studentID, errorBool)
-                break
-            else:
-                print("Your input is invalid, please select a number from {}. ".format(gradeTitle))
-                classGradeLevel = 0
-                continue
-        # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
-
-
+        classGradeLevel = input("What grade is {} in? {} ".format(studentFirstName, gradeTitle))
+        classGradeLevel, gradeTitle, errorBool = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
+        print("We've added {} {}, Grade {}, to the school roster.".format(studentFirstName, studentLastName, classGradeLevel))
+        update_files.writestudentstofile(studentFirstName, studentLastName, classGradeLevel, studentID, errorBool)
 
     elif action == 2:
         #
@@ -83,12 +69,9 @@ while tempBool:
         teacherFirstName = input("What is the teacher's first name? ")
         teacherLastName = input("What is the teacher's last name? ")
         classGradeLevel = input("What grade will Mr./Mis./Miss. {} be teaching? {} ".format(studentLastName, gradeTitle))
-        classGradeLevel = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
-
-        print("We've added {} to the staff roster.".format(teacherFirstName))
-
-        # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
-
+        classGradeLevel, gradeTitle, errorBool = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
+        print("We've added {} {}, Grade {}, to the school staff.".format(teacherFirstName, teacherLastName, classGradeLevel))
+        update_files.writeteacherstofile(teacherFirstName, teacherLastName, classGradeLevel, teacherID, errorBool)
 
     elif action == 3:
         assignmentPoints = int(input("What grade did they get? "))
