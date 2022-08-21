@@ -74,6 +74,11 @@ while tempBool:
         update_files.writeteacherstofile(teacherFirstName, teacherLastName, classGradeLevel, teacherID, errorBool)
 
     elif action == 3:
+        print("Please select the student: ")
+        with open("Active_Students.txt") as students:
+            students.read()
+            print(students)
+            students.close()
         assignmentPoints = int(input("What grade did they get? "))
 
         print("We've added {} to {}.{} grade-book.".format(assignmentPoints, studentID, studentFirstName))

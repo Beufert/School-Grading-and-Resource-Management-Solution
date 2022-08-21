@@ -1,7 +1,7 @@
 # This file will be used to take inputs from the user and add it to the specific file
 
 student_filename = "Active_Students.txt"
-teacher_filename = 'Active_Teachers.txt'
+teacher_filename = 'Active_Teachers'
 
 def writestudentstofile(fname, lname, grade, sID, errorbool):
     with open(student_filename, "a") as students:
