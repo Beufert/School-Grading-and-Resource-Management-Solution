@@ -61,6 +61,8 @@ while tempBool:
         classGradeLevel, gradeTitle, errorBool = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
         print("We've added {} {}, Grade {}, to the school roster.".format(studentFirstName, studentLastName, classGradeLevel))
         update_files.writestudentstofile(studentFirstName, studentLastName, classGradeLevel, studentID, errorBool)
+        studentFirstName, studentLastName, classGradeLevel, studentID = '', '', '', ''
+        errorBool = False
 
     elif action == 2:
         #
@@ -72,6 +74,8 @@ while tempBool:
         classGradeLevel, gradeTitle, errorBool = errorChecking.errorcheckingintegers(classGradeLevel, gradeTitle, errorBool)
         print("We've added {} {}, Grade {}, to the school staff.".format(teacherFirstName, teacherLastName, classGradeLevel))
         update_files.writeteacherstofile(teacherFirstName, teacherLastName, classGradeLevel, teacherID, errorBool)
+        teacherFirstName, teacherLastName, classGradeLevel, teacherID = '', '', '', ''
+        errorBool = False
 
     elif action == 3:
         print("Please select the student: ")

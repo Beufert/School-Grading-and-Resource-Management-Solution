@@ -7,3 +7,10 @@
 0G4: will tuner
 0G3: Will Pok
 0G4: Emma Hopper
+0G2: Dalton Carlson
+0G4: Jason Bourn
+0G3: Jill Hill
+0G4: Jill Phil
+0G5: Mic Len
+0G4: Window Lamp
+G6: Chair Table
