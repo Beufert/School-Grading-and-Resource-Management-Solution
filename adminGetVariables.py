@@ -80,12 +80,13 @@ while tempBool:
     elif action == 3:
         print("Please select the student: ")
         with open("Active_Students.txt") as students:
-            students.read()
-            print(students)
+            studentlist = students.read()
+            print(studentlist)
             students.close()
+        studentID = input("Please input the student ID, located to the left of the student's name. Format: xxGx.")
         assignmentPoints = int(input("What grade did they get? "))
 
-        print("We've added {} to {}.{} grade-book.".format(assignmentPoints, studentID, studentFirstName))
+        print("We've added {} to {}.{}'s grade-book.".format(assignmentPoints, studentID, studentFirstName))
 
         # This is a substitute value for the option later to continue adding whatever value is in 'ContinueLoop'
         continueLoop = 'grade'
